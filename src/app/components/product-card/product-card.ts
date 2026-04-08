@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { Product } from '../../models/product';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatButton],
+  imports: [MatButton, MatIcon],
   template: ` <div class="relative h-full rounded bg-white shadow-xl">
     <img
       [src]="product().imageUrl"
@@ -22,7 +23,13 @@ import { Product } from '../../models/product';
         <span class="text-xl font-bold text-green-600">\${{ product().price }}</span>
       }
 
-      <button matButton="filled" color="primary" [disabled]="!product().isStock">
+      <button
+        matButton="filled"
+        class="flex gap-2 items-center"
+        color="primary"
+        [disabled]="!product().isStock"
+      >
+        <mat-icon>shopping_cart</mat-icon>
         Add to Cart
       </button>
     </div>

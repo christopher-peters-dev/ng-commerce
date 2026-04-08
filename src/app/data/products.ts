@@ -10,7 +10,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.4,
     reviewCount: 214,
     isStock: false,
-    category: 'electronics',
+    category: 'Electronics',
   },
   {
     id: 'prod-002',
@@ -21,7 +21,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 1021,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
   {
     id: 'prod-003',
@@ -32,7 +32,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.2,
     reviewCount: 87,
     isStock: true,
-    category: 'clothing',
+    category: 'Clothing',
   },
   {
     id: 'prod-004',
@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 342,
     isStock: true,
-    category: 'grocery',
+    category: 'Grocery',
   },
   {
     id: 'prod-005',
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.3,
     reviewCount: 156,
     isStock: true,
-    category: 'home',
+    category: 'Home',
   },
   {
     id: 'prod-006',
@@ -65,7 +65,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 412,
     isStock: true,
-    category: 'sports',
+    category: 'Sports',
   },
   {
     id: 'prod-007',
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.1,
     reviewCount: 59,
     isStock: true,
-    category: 'stationery',
+    category: 'Stationery',
   },
   {
     id: 'prod-008',
@@ -87,7 +87,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.0,
     reviewCount: 298,
     isStock: false,
-    category: 'electronics',
+    category: 'Electronics',
   },
   {
     id: 'prod-009',
@@ -98,7 +98,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 89,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
   {
     id: 'prod-010',
@@ -109,7 +109,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 523,
     isStock: true,
-    category: 'toys',
+    category: 'Toys',
   },
   {
     id: 'prod-011',
@@ -120,7 +120,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.4,
     reviewCount: 211,
     isStock: true,
-    category: 'personal-care',
+    category: 'Personal Care',
   },
   {
     id: 'prod-012',
@@ -131,7 +131,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 134,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
   {
     id: 'prod-013',
@@ -142,7 +142,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.2,
     reviewCount: 198,
     isStock: true,
-    category: 'travel',
+    category: 'Travel',
   },
   {
     id: 'prod-014',
@@ -153,7 +153,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 77,
     isStock: true,
-    category: 'home',
+    category: 'Home',
   },
   {
     id: 'prod-015',
@@ -164,7 +164,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 312,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
   {
     id: 'prod-016',
@@ -175,7 +175,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.3,
     reviewCount: 410,
     isStock: false,
-    category: 'electronics',
+    category: 'Electronics',
   },
   {
     id: 'prod-017',
@@ -186,7 +186,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 644,
     isStock: true,
-    category: 'sports',
+    category: 'Sports',
   },
   {
     id: 'prod-018',
@@ -197,7 +197,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.4,
     reviewCount: 158,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
   {
     id: 'prod-019',
@@ -208,7 +208,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 2200,
     isStock: true,
-    category: 'books',
+    category: 'Books',
   },
   {
     id: 'prod-020',
@@ -219,7 +219,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.0,
     reviewCount: 45,
     isStock: true,
-    category: 'stationery',
+    category: 'Stationery',
   },
   {
     id: 'prod-021',
@@ -230,7 +230,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 91,
     isStock: true,
-    category: 'home',
+    category: 'Home',
   },
   {
     id: 'prod-022',
@@ -241,7 +241,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.2,
     reviewCount: 349,
     isStock: true,
-    category: 'electronics',
+    category: 'Electronics',
   },
   {
     id: 'prod-023',
@@ -252,7 +252,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 66,
     isStock: true,
-    category: 'beauty',
+    category: 'Beauty',
   },
   {
     id: 'prod-024',
@@ -263,7 +263,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.3,
     reviewCount: 27,
     isStock: true,
-    category: 'garden',
+    category: 'Garden',
   },
   {
     id: 'prod-025',
@@ -274,7 +274,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.1,
     reviewCount: 133,
     isStock: true,
-    category: 'electronics',
+    category: 'Electronics',
   },
   {
     id: 'prod-026',
@@ -285,7 +285,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.0,
     reviewCount: 88,
     isStock: false,
-    category: 'clothing',
+    category: 'Clothing',
   },
   {
     id: 'prod-027',
@@ -296,7 +296,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.4,
     reviewCount: 204,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
   {
     id: 'prod-028',
@@ -307,7 +307,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 39,
     isStock: true,
-    category: 'home',
+    category: 'Home',
   },
   {
     id: 'prod-029',
@@ -318,7 +318,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 412,
     isStock: true,
-    category: 'toys',
+    category: 'Toys',
   },
   {
     id: 'prod-030',
@@ -329,7 +329,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.2,
     reviewCount: 74,
     isStock: true,
-    category: 'kitchen',
+    category: 'Kitchen',
   },
 ];
 
