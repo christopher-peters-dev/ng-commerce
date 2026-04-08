@@ -1,59 +1,100 @@
-# NgEcommerce
+# ng-ecommerce
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+Angular 21 storefront starter built with standalone components, Angular Material, Tailwind CSS v4, and signal-based state.
 
-## Development server
+## Overview
 
-To start a local development server, run:
+This project is an early-stage e-commerce frontend focused on a simple storefront flow:
 
-```bash
-ng serve
-```
+- a sticky header with primary actions
+- a product listing page filtered by category
+- wishlist navigation
+- redirects for unknown routes and invalid category slugs
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The app defaults to `products/all` and lazy-loads route pages from the Angular router.
 
-## Code scaffolding
+## Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Angular 21
+- Standalone components
+- Angular Signals
+- Angular Material 21
+- Tailwind CSS v4
+- SCSS
+- Vitest
 
-```bash
-ng generate component component-name
-```
+## Getting Started
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Install dependencies:
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Start the dev server:
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+The application runs at `http://localhost:4200`.
 
-For end-to-end (e2e) testing, run:
+## Available Scripts
+
+Start development server:
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Build for production:
 
-## Additional Resources
+```bash
+npm run build
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Run the test suite:
+
+```bash
+npm test
+```
+
+Run the dev build in watch mode:
+
+```bash
+npm run watch
+```
+
+## Routing
+
+The current application routes are:
+
+- `/` redirects to `/products/all`
+- `/products/:category` loads the product grid
+- `/wishlist` loads the wishlist page
+- unknown URLs redirect to `/products/all`
+
+Invalid category slugs under `/products/:category` are also redirected to `/products/all` by the products grid page.
+
+## Project Structure
+
+Key application files:
+
+- `src/app/app.routes.ts` defines route configuration
+- `src/app/app.config.ts` configures the router with component input binding
+- `src/app/layout/` contains header UI
+- `src/app/pages/products-grid/` contains the storefront grid view
+- `src/app/components/product-card/` contains the reusable product tile
+- `src/app/data/products.ts` contains seed product data
+
+## Conventions
+
+- standalone components only
+- inline templates and inline styles for small components
+- signals for local reactive state
+- Tailwind utilities for layout and spacing
+- Angular Material components for interactive UI
+
+## Notes
+
+This repository currently uses static in-memory product data and is intended as a foundation for future catalog, cart, and wishlist features.
