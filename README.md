@@ -15,6 +15,8 @@ The app defaults to `products/all` and lazy-loads route pages from the Angular r
 
 The storefront state is centralized in an NgRx Signal Store that manages the selected category and derived product filtering.
 
+The project now includes Angular unit tests powered by the CLI's Vitest-based `@angular/build:unit-test` target.
+
 ## Tech Stack
 
 - Angular 21
@@ -62,6 +64,12 @@ Run the test suite:
 npm test
 ```
 
+Run tests in single-run mode:
+
+```bash
+npx ng test --no-watch --no-progress
+```
+
 Run the dev build in watch mode:
 
 ```bash
@@ -90,6 +98,20 @@ Key application files:
 - `src/app/pages/products-grid/` contains the storefront grid view
 - `src/app/components/product-card/` contains the reusable product tile
 - `src/app/data/products.ts` contains seed product data
+- `src/app/**/*.spec.ts` contains route, store, and component UI tests
+
+## Testing
+
+The application uses Angular's built-in Vitest integration through the `test` target in `angular.json`.
+
+Current automated coverage includes:
+
+- route-level redirects and page loading
+- NgRx Signal Store state and derived selectors
+- products grid rendering and invalid-category redirects
+- app shell, header, and header action UI
+- product card UI states and wishlist toggle behavior
+- wishlist page placeholder rendering
 
 ## Conventions
 
