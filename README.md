@@ -1,6 +1,6 @@
 # ng-ecommerce
 
-Angular 21 storefront starter built with standalone components, Angular Material, Tailwind CSS v4, and signal-based state.
+Angular 21 storefront starter built with standalone components, Angular Material, Tailwind CSS v4, Angular Signals, and NgRx Signal Store.
 
 ## Overview
 
@@ -13,11 +13,14 @@ This project is an early-stage e-commerce frontend focused on a simple storefron
 
 The app defaults to `products/all` and lazy-loads route pages from the Angular router.
 
+The storefront state is centralized in an NgRx Signal Store that manages the selected category and derived product filtering.
+
 ## Tech Stack
 
 - Angular 21
 - Standalone components
 - Angular Signals
+- NgRx Signals (`@ngrx/signals`)
 - Angular Material 21
 - Tailwind CSS v4
 - SCSS
@@ -82,6 +85,7 @@ Key application files:
 
 - `src/app/app.routes.ts` defines route configuration
 - `src/app/app.config.ts` configures the router with component input binding
+- `src/app/store.ts` defines the root NgRx Signal Store for storefront state
 - `src/app/layout/` contains header UI
 - `src/app/pages/products-grid/` contains the storefront grid view
 - `src/app/components/product-card/` contains the reusable product tile
@@ -92,6 +96,7 @@ Key application files:
 - standalone components only
 - inline templates and inline styles for small components
 - signals for local reactive state
+- NgRx Signal Store for shared storefront state and derived selectors
 - Tailwind utilities for layout and spacing
 - Angular Material components for interactive UI
 
