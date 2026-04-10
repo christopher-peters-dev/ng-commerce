@@ -6,7 +6,7 @@ import { ProductCard } from '../../components/product-card/product-card';
 import { AppStore } from '../../store';
 
 @Component({
-  selector: 'app-my-wishlist',
+  selector: 'app-my-cart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProductCard, MatButton, MatIcon, RouterLink],
   template: `
@@ -23,21 +23,21 @@ import { AppStore } from '../../store';
         </a>
 
         <div class="text-sm font-semibold text-slate-500 sm:text-right">
-          {{ wishlistCount() }} items
+          {{ cartCount() }} items
         </div>
       </header>
 
       <div class="responsive-grid">
-        @for (product of store.wishlist(); track product.id) {
-          <app-product-card [product]="product" view="wishlist"></app-product-card>
+        @for (product of store.cart(); track product.id) {
+          <app-product-card [product]="product" view="cart"></app-product-card>
         }
       </div>
 
-      @if (wishlistCount() === 0) {
+      @if (cartCount() === 0) {
         <div
           class="rounded border border-dashed border-slate-300 bg-slate-50 px-3 py-6 text-center text-slate-600"
         >
-          Your wishlist is empty.
+          Your cart is empty.
         </div>
       } @else {
         <div class="flex justify-end pt-2">
@@ -45,11 +45,11 @@ import { AppStore } from '../../store';
             matButton
             type="button"
             class="inline-flex items-center gap-2 px-0 text-slate-700"
-            aria-label="Clear wishlist"
-            (click)="clearWishlist()"
+            aria-label="Clear cart"
+            (click)="clearCart()"
           >
             <mat-icon>delete_sweep</mat-icon>
-            Clear Wishlist
+            Clear Cart
           </button>
         </div>
       }
@@ -57,11 +57,11 @@ import { AppStore } from '../../store';
   `,
   styles: ``,
 })
-export class MyWishlist {
+export class MyCart {
   protected readonly store = inject(AppStore);
-  protected readonly wishlistCount = computed(() => this.store.wishlist().length);
+  protected readonly cartCount = computed(() => this.store.cart().length);
 
-  protected clearWishlist(): void {
-    this.store.clearWishlist();
+  protected clearCart(): void {
+    this.store.clearCart();
   }
 }

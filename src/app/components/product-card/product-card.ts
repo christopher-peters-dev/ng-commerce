@@ -1,34 +1,52 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  computed,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Product } from '../../models/product';
+import { AppStore } from '../../store';
 
 @Component({
   selector: 'app-product-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButton, MatIcon],
-  template: ` <div class="relative h-full overflow-hidden rounded bg-white shadow-xl">
+  template: ` <div
+    class="relative h-full overflow-hidden rounded bg-white shadow-xl transition-all duration-200 ease-out motion-reduce:transition-none"
+    [class.translate-y-1]="isRemoving()"
+    [class.opacity-0]="isRemoving()"
+  >
     <div class="relative">
       <img
         [src]="product().imageUrl"
         alt="{{ product().title }}"
         class="mb-4 h-48 w-full rounded-t object-cover"
       />
-      <button
-        type="button"
-        class="absolute top-3 right-3 flex h-10 min-w-10 items-center justify-center rounded border px-2 shadow-sm outline-none backdrop-blur-sm transition-colors"
-        [attr.aria-label]="liked() ? 'Remove from wishlist' : 'Add to wishlist'"
-        [attr.aria-pressed]="liked()"
-        [class.border-transparent]="liked()"
-        [class.bg-rose-50]="liked()"
-        [class.text-rose-500]="liked()"
-        [class.border-slate-200/80]="!liked()"
-        [class.bg-white/85]="!liked()"
-        [class.text-slate-500]="!liked()"
-        (click)="toggleLiked()"
-      >
-        <mat-icon>{{ liked() ? 'favorite' : 'favorite_border' }}</mat-icon>
-      </button>
+      @if (product().isStock) {
+        <button
+          type="button"
+          class="absolute top-3 right-3 flex h-10 min-w-10 items-center justify-center rounded border px-2 shadow-sm outline-none backdrop-blur-sm transition-colors"
+          [attr.aria-label]="actionLabel()"
+          [attr.aria-pressed]="view() === 'default' ? liked() : null"
+          [class.border-slate-200]="view() === 'wishlist'"
+          [class.bg-white/90]="view() === 'wishlist'"
+          [class.text-slate-600]="view() === 'wishlist'"
+          [class.border-transparent]="view() !== 'wishlist' && liked()"
+          [class.bg-rose-50]="view() !== 'wishlist' && liked()"
+          [class.text-rose-500]="view() !== 'wishlist' && liked()"
+          [class.border-slate-200/80]="view() !== 'wishlist' && !liked()"
+          [class.bg-white/85]="view() !== 'wishlist' && !liked()"
+          [class.text-slate-500]="view() !== 'wishlist' && !liked()"
+          (click)="toggleLiked()"
+        >
+          <mat-icon>{{ actionIcon() }}</mat-icon>
+        </button>
+      }
     </div>
     <div class="flex h-full flex-col px-4 py-2 pb-18">
       <h2 class="text-lg font-semibold">{{ product().title }}</h2>
@@ -67,32 +85,93 @@ import { Product } from '../../models/product';
         <span class="text-xl font-bold text-green-600">\${{ product().price }}</span>
       }
 
-      <button
-        matButton="filled"
-        class="flex gap-2 items-center"
-        color="primary"
-        [disabled]="!product().isStock"
-      >
-        <mat-icon>shopping_cart</mat-icon>
-        Add to Cart
-      </button>
+      @if (view() === 'cart') {
+        <button matButton type="button" class="flex items-center gap-2" (click)="toggleCart()">
+          <mat-icon>delete</mat-icon>
+          Remove from Cart
+        </button>
+      } @else if (inCart()) {
+        <button
+          matButton
+          type="button"
+          class="flex items-center gap-2 text-slate-700"
+          (click)="toggleCart()"
+        >
+          <mat-icon>remove_shopping_cart</mat-icon>
+          Remove from Cart
+        </button>
+      } @else {
+        <button
+          matButton="filled"
+          type="button"
+          class="flex items-center gap-2"
+          color="primary"
+          [disabled]="!product().isStock"
+          (click)="toggleCart()"
+        >
+          <mat-icon>shopping_cart</mat-icon>
+          Add to Cart
+        </button>
+      }
     </div>
   </div>`,
   styles: `
     :host {
       display: block;
       height: 100%;
+      animation: product-card-fade-in 180ms ease-out;
+    }
+
+    @keyframes product-card-fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   `,
 })
 export class ProductCard {
   protected readonly starPositions = [1, 2, 3, 4, 5];
-  protected readonly liked = signal(false);
+  private readonly destroyRef = inject(DestroyRef);
+  protected readonly store = inject(AppStore);
 
   product = input.required<Product>();
+  view = input<'default' | 'wishlist' | 'cart'>('default');
+
+  protected readonly isRemoving = signal(false);
 
   protected readonly filledStars = computed(() => Math.round(this.product().rating));
+  protected readonly inCart = computed(() =>
+    this.store.cart().some((item) => item.id === this.product().id),
+  );
+  protected readonly liked = computed(() =>
+    this.store.wishlist().some((item) => item.id === this.product().id),
+  );
+  protected readonly actionIcon = computed(() => {
+    if (this.view() === 'wishlist') {
+      return 'delete';
+    }
 
+    if (this.view() === 'cart') {
+      return this.liked() ? 'favorite' : 'favorite_border';
+    }
+
+    return this.liked() ? 'favorite' : 'favorite_border';
+  });
+  protected readonly actionLabel = computed(() =>
+    this.view() === 'wishlist'
+      ? 'Remove from wishlist'
+      : this.view() === 'cart'
+        ? 'Move to wishlist'
+        : this.liked()
+          ? 'Remove from wishlist'
+          : 'Add to wishlist',
+  );
   protected readonly ratingTone = computed(() => {
     const rating = this.product().rating;
 
@@ -112,6 +191,75 @@ export class ProductCard {
   });
 
   protected toggleLiked(): void {
-    this.liked.update((value) => !value);
+    if (this.view() === 'wishlist') {
+      this.removeFromWishlistWithTransition();
+      return;
+    }
+
+    if (this.view() === 'cart') {
+      this.moveToWishlistWithTransition();
+      return;
+    }
+
+    if (this.liked()) {
+      this.store.removeWishlist(this.product().id);
+    } else {
+      this.store.addWishlist(this.product());
+    }
+  }
+
+  protected toggleCart(): void {
+    if (this.view() === 'cart') {
+      this.removeFromCartWithTransition();
+      return;
+    }
+
+    if (this.inCart()) {
+      this.store.removeCart(this.product().id);
+    } else {
+      this.store.addCart(this.product());
+    }
+  }
+
+  private removeFromWishlistWithTransition(): void {
+    if (this.isRemoving()) {
+      return;
+    }
+
+    this.isRemoving.set(true);
+
+    const timeoutId = window.setTimeout(() => {
+      this.store.removeWishlist(this.product().id);
+    }, 180);
+
+    this.destroyRef.onDestroy(() => window.clearTimeout(timeoutId));
+  }
+
+  private removeFromCartWithTransition(): void {
+    if (this.isRemoving()) {
+      return;
+    }
+
+    this.isRemoving.set(true);
+
+    const timeoutId = window.setTimeout(() => {
+      this.store.removeCart(this.product().id);
+    }, 180);
+
+    this.destroyRef.onDestroy(() => window.clearTimeout(timeoutId));
+  }
+
+  private moveToWishlistWithTransition(): void {
+    if (this.isRemoving()) {
+      return;
+    }
+
+    this.isRemoving.set(true);
+
+    const timeoutId = window.setTimeout(() => {
+      this.store.moveCartToWishlist(this.product().id);
+    }, 180);
+
+    this.destroyRef.onDestroy(() => window.clearTimeout(timeoutId));
   }
 }

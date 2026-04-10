@@ -5,6 +5,7 @@
 // custom components at https://material.angular.dev/guide/theming
 @use 'tailwindcss';
 @use '@angular/material' as mat;
+@use '@ngxpert/hot-toast/styles';
 
 html {
   @include mat.theme(

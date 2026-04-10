@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { MyCart } from './pages/my-cart/my-cart';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
   {
     path: 'wishlist',
     loadComponent: () => import('./pages/my-wishlist/my-wishlist').then((m) => m.MyWishlist),
+  },
+  {
+    path: 'cart',
+    component: MyCart,
   },
   {
     path: '**',

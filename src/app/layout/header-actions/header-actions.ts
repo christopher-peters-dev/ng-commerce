@@ -1,16 +1,28 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { AppStore } from '../../store';
 
 @Component({
   selector: 'app-header-actions',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButton, MatIconButton, MatIcon, RouterLink],
   template: `<div class="flex items-center gap-1 sm:gap-2">
-    <button matIconButton routerLink="/wishlist" class="text-slate-600">
+    <button
+      matIconButton
+      routerLink="/wishlist"
+      class="text-slate-600"
+      [attr.aria-label]="wishlistCount() + ' items in wishlist'"
+    >
       <mat-icon>favorite</mat-icon>
     </button>
-    <button matIconButton class="text-slate-600">
+    <button
+      matIconButton
+      routerLink="/cart"
+      class="text-slate-600"
+      [attr.aria-label]="cartCount() + ' items in cart'"
+    >
       <mat-icon>shopping_cart</mat-icon>
     </button>
     <button matButton class="hidden text-slate-700 sm:inline-flex">Sign In</button>
@@ -18,4 +30,9 @@ import { RouterLink } from '@angular/router';
   </div>`,
   styles: ``,
 })
-export class HeaderActions {}
+export class HeaderActions {
+  private readonly store = inject(AppStore);
+
+  protected readonly wishlistCount = computed(() => this.store.wishlist().length);
+  protected readonly cartCount = computed(() => this.store.cart().length);
+}

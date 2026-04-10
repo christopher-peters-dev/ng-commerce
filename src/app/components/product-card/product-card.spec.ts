@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Product } from '../../models/product';
+import { ToastService } from '../../services/toast.service';
 import { ProductCard } from './product-card';
 
 const inStockProduct: Product = {
@@ -18,7 +19,21 @@ const inStockProduct: Product = {
 describe('ProductCard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideNoopAnimations()],
+      providers: [
+        provideNoopAnimations(),
+        {
+          provide: ToastService,
+          useValue: {
+            wishlistAdded: () => {},
+            wishlistRemoved: () => {},
+            wishlistCleared: () => {},
+            cartAdded: () => {},
+            cartRemoved: () => {},
+            cartMovedToWishlist: () => {},
+            cartCleared: () => {},
+          },
+        },
+      ],
     });
   });
 
@@ -62,5 +77,21 @@ describe('ProductCard', () => {
 
     expect(favoriteButton.getAttribute('aria-pressed')).toBe('true');
     expect(favoriteButton.getAttribute('aria-label')).toBe('Remove from wishlist');
+  });
+
+  it('toggles cart state from the bottom action button', () => {
+    const fixture = TestBed.createComponent(ProductCard);
+    fixture.componentRef.setInput('product', inStockProduct);
+    fixture.detectChanges();
+
+    const buttons = Array.from(
+      fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>,
+    );
+    const addToCartButton = buttons.find((button) => button.textContent?.includes('Add to Cart'));
+
+    addToCartButton?.click();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('Remove from Cart');
   });
 });

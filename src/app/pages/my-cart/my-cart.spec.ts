@@ -1,21 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { MyWishlist } from './my-wishlist';
+import { MyCart } from './my-cart';
 
-describe('MyWishlist', () => {
+describe('MyCart', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideRouter([]), provideNoopAnimations()],
     });
   });
 
-  it('renders the empty wishlist state', () => {
-    const fixture = TestBed.createComponent(MyWishlist);
+  it('renders the empty cart state', () => {
+    const fixture = TestBed.createComponent(MyCart);
     fixture.detectChanges();
 
     expect(fixture.nativeElement.textContent).toContain('Continue Shopping');
     expect(fixture.nativeElement.textContent).toContain('0 items');
-    expect(fixture.nativeElement.textContent).toContain('Your wishlist is empty.');
+    expect(fixture.nativeElement.textContent).toContain('Your cart is empty.');
   });
 });

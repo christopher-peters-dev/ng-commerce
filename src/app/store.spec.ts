@@ -31,4 +31,16 @@ describe('AppStore', () => {
       true,
     );
   });
+
+  it('adds cart items and can move them to wishlist', () => {
+    const product = store.products()[0];
+
+    store.addCart(product);
+    expect(store.cart()).toEqual([product]);
+
+    store.moveCartToWishlist(product.id);
+
+    expect(store.cart()).toEqual([]);
+    expect(store.wishlist()).toEqual([product]);
+  });
 });

@@ -21,6 +21,7 @@ describe('HeaderActions', () => {
 
     expect(fixture.nativeElement.textContent).toContain('Sign In');
     expect(fixture.nativeElement.textContent).toContain('Sign Up');
-    expect(routerLinks).toHaveLength(1);
+    expect(routerLinks).toHaveLength(2);
+    expect(routerLinks.map((link) => link.urlTree?.toString())).toEqual(['/wishlist', '/cart']);
   });
 });
