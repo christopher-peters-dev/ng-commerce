@@ -36,7 +36,8 @@ describe('app routes', () => {
     await harness.navigateByUrl('/cart', MyCart);
 
     expect(TestBed.inject(Router).url).toBe('/cart');
-    expect(harness.routeNativeElement?.textContent).toContain('Continue Shopping');
+    expect(harness.routeNativeElement?.textContent).toContain('Wishlist');
+    expect(harness.routeNativeElement?.textContent).toContain('Order Summary');
     expect(harness.routeNativeElement?.textContent).toContain('Your cart is empty.');
   });
 

@@ -32,12 +32,34 @@ describe('AppStore', () => {
     );
   });
 
-  it('adds cart items and can move them to wishlist', () => {
-    const product = store.products()[0];
+  it('adds cart items with a default quantity and merges duplicate adds', () => {
+    const product = store.products()[1];
 
     store.addCart(product);
-    expect(store.cart()).toEqual([product]);
+    store.addCart(product, 2);
 
+    expect(store.cart()).toEqual([{ ...product, quantity: 3 }]);
+    expect(store.cartCount()).toBe(3);
+    expect(store.cartSubtotal()).toBeCloseTo(product.price * 3, 2);
+  });
+
+  it('increments and decrements cart quantity without going below one', () => {
+    const product = store.products()[2];
+
+    store.addCart(product, 2);
+    store.incrementCartQuantity(product.id);
+    store.decrementCartQuantity(product.id);
+    store.decrementCartQuantity(product.id);
+    store.decrementCartQuantity(product.id);
+
+    expect(store.cart()[0].quantity).toBe(1);
+    expect(store.cartCount()).toBe(1);
+  });
+
+  it('moves cart items to wishlist without leaking quantity into wishlist state', () => {
+    const product = store.products()[3];
+
+    store.addCart(product, 2);
     store.moveCartToWishlist(product.id);
 
     expect(store.cart()).toEqual([]);

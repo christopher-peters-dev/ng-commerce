@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { AppStore } from '../../store';
     <button
       matIconButton
       routerLink="/wishlist"
-      class="wishlist-badge-button text-slate-600"
+      class="header-badge-button text-slate-600"
       [attr.aria-label]="wishlistCount() + ' items in wishlist'"
       [matBadge]="wishlistCount().toString()"
       [matBadgeHidden]="wishlistCount() === 0"
@@ -26,8 +26,13 @@ import { AppStore } from '../../store';
     <button
       matIconButton
       routerLink="/cart"
-      class="text-slate-600"
+      class="header-badge-button text-slate-600"
       [attr.aria-label]="cartCount() + ' items in cart'"
+      [matBadge]="cartCount().toString()"
+      [matBadgeHidden]="cartCount() === 0"
+      [matBadgeOverlap]="false"
+      matBadgeSize="medium"
+      matBadgeColor="warn"
     >
       <mat-icon>shopping_cart</mat-icon>
     </button>
@@ -35,7 +40,7 @@ import { AppStore } from '../../store';
     <button matButton="filled">Sign Up</button>
   </div>`,
   styles: `
-    :host ::ng-deep .wishlist-badge-button .mat-badge-content {
+    :host ::ng-deep .header-badge-button .mat-badge-content {
       transform: translate(-10px, 2px);
       min-width: 18px;
       padding-inline: 4px;
@@ -45,6 +50,6 @@ import { AppStore } from '../../store';
 export class HeaderActions {
   private readonly store = inject(AppStore);
 
-  protected readonly wishlistCount = computed(() => this.store.wishlist().length);
-  protected readonly cartCount = computed(() => this.store.cart().length);
+  protected readonly wishlistCount = this.store.wishlistCount;
+  protected readonly cartCount = this.store.cartCount;
 }
